@@ -1,21 +1,66 @@
 import React from 'react';
-import { Text, View } from 'react-native';
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 
-const ViewBoxesWithColorAndText = () => {
+const data = [
+  { id: 1, label: 'Dr.Carlos Alves' },
+  { id: 2, label: 'Dr.Marilia Neves' },
+  { id: 3, label: 'Dr.Gabriel Henrique' },
+  { id: 4, label: 'Dr.Enzo Gabriel' },
+  { id: 5, label: 'Dr.Gabriela Souza' },
+];
+
+export default function App() {
   return (
-    <SafeAreaProvider>
-      {/* Adicione flex: 1 aqui para a SafeAreaView ocupar a tela toda */}
-      <SafeAreaView style={{ flex: 1, backgroundColor: '#203298' }}>
-        
-        {/* Remova o height fixo e use flex: 1 para preencher o espaço */}
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <Text style={{ color: 'white' }}>Dr.Carlos Matheus</Text>
-        </View>
-        
-      </SafeAreaView>
-    </SafeAreaProvider>
-  );
-};
+    <View style={styles.container}>
+      {/* Cabeçalho */}
+      <Text style={styles.greeting}>Bom Dia Matheus</Text>
+      <Text style={styles.subText}>Bem Vindo a Medclin</Text>
 
-export default ViewBoxesWithColorAndText;
+      {/* Lista de itens */}
+      <FlatList
+        data={data}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => (
+          <View style={styles.item}>
+            <View style={styles.circle} />
+            <Text style={styles.label}>{item.label}</Text>
+          </View>
+        )}
+      />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#203298', // fundo azul
+    padding: 20,
+  },
+  greeting: {
+    color: 'white',
+    fontSize: 40,
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  subText: {
+    color: 'white',
+    marginBottom: 35,
+  },
+  item: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 45,
+  },
+  circle: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: 'lightgray',
+    marginRight: 15,
+  },
+  label: {
+    color: 'white',
+    fontSize: 18,
+  },
+});
