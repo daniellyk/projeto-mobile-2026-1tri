@@ -15,28 +15,30 @@ const ViewBoxesWithColorAndText = () => {
           <View style={styles.listGroup}>
             
             <View style={styles.listGroupItem}>
-              <Text style={styles.itemText}>Infecção do Trato Urinário (ITU)</Text>
+              <Text style={styles.itemText}>Infecção do Trato Urinário (ITU)                    19:45 a 23:00</Text>
             </View>
             
             <View style={styles.listGroupItem}>
-              <Text style={styles.itemText}>Pneumonia Hospitalar</Text>
+              <Text style={styles.itemText}>Pneumonia Hospitalar                               14:30 a 21:45</Text>
             </View>
             
             <View style={styles.listGroupItem}>
-              <Text style={styles.itemText}>Infecção de Sítio Cirúgico</Text>
+              <Text style={styles.itemText}>Infecção de Sítio Cirúgico                         16:00 a 22:00</Text>
             </View>
             
             <View style={styles.listGroupItem}>
-              <Text style={styles.itemText}>Infecção da Corrente Sanguínea</Text>
+              <Text style={styles.itemText}>Infecção da Corrente Sanguínea                     13:00 a 18:00</Text>
             </View>
             
             {/* O último item não recebe a borda inferior */}
             <View style={[styles.listGroupItem, styles.lastItem]}>
-              <Text style={styles.itemText}>And a fifth one</Text>
+              <Text style={styles.itemText}>Câncer (Pulmão/Brônquios/Traqueia)                  15:00 a 20:00</Text>
             </View>
 
           </View>
+          <SafeAreaProvider>
           
+    </SafeAreaProvider>
         </View>
       </SafeAreaView>
     </SafeAreaProvider>
