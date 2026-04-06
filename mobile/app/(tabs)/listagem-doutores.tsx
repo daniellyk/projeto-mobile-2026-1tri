@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { Alert, FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const data = [
   { id: 1, label: 'Dr.Carlos Alves' },
@@ -10,9 +10,12 @@ const data = [
 ];
 
 export default function App() {
+  const handlePress = () => {
+    Alert.alert('Drs do hospital', );
+  };
+    
   return (
     <View style={styles.container}>
-      {/* Cabeçalho */}
       <Text style={styles.greeting}>Bom Dia Matheus</Text>
       <Text style={styles.subText}>Bem Vindo a Medclin</Text>
 
@@ -21,10 +24,10 @@ export default function App() {
         data={data}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-          <View style={styles.item}>
+          <TouchableOpacity style={styles.item} onPress={() => handlePress()}>
             <View style={styles.circle} />
             <Text style={styles.label}>{item.label}</Text>
-          </View>
+          </TouchableOpacity>
         )}
       />
     </View>
@@ -34,7 +37,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#203298', // fundo azul
+    backgroundColor: '#203298',
     padding: 20,
   },
   greeting: {
