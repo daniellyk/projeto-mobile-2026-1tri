@@ -1,112 +1,90 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
-import { ExternalLink } from '@/components/external-link';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Collapsible } from '@/components/ui/collapsible';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Fonts } from '@/constants/theme';
-
-export default function TabTwoScreen() {
+const ViewBoxesWithColorAndText = () => {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
-      headerImage={
-        <IconSymbol
-          size={310}
-          color="#808080"
-          name="chevron.left.forwardslash.chevron.right"
-          style={styles.headerImage}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText
-          type="title"
-          style={{
-            fontFamily: Fonts.rounded,
-          }}>
-          Explore
-        </ThemedText>
-      </ThemedView>
-      <ThemedText>This app includes example code to help you get started.</ThemedText>
-      <Collapsible title="File-based routing">
-        <ThemedText>
-          This app has two screens:{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/explore.tsx</ThemedText>
-        </ThemedText>
-        <ThemedText>
-          The layout file in <ThemedText type="defaultSemiBold">app/(tabs)/_layout.tsx</ThemedText>{' '}
-          sets up the tab navigator.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/router/introduction">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Android, iOS, and web support">
-        <ThemedText>
-          You can open this project on Android, iOS, and the web. To open the web version, press{' '}
-          <ThemedText type="defaultSemiBold">w</ThemedText> in the terminal running this project.
-        </ThemedText>
-      </Collapsible>
-      <Collapsible title="Images">
-        <ThemedText>
-          For static images, you can use the <ThemedText type="defaultSemiBold">@2x</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">@3x</ThemedText> suffixes to provide files for
-          different screen densities
-        </ThemedText>
-        <Image
-          source={require('@/assets/images/react-logo.png')}
-          style={{ width: 100, height: 100, alignSelf: 'center' }}
-        />
-        <ExternalLink href="https://reactnative.dev/docs/images">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Light and dark mode components">
-        <ThemedText>
-          This template has light and dark mode support. The{' '}
-          <ThemedText type="defaultSemiBold">useColorScheme()</ThemedText> hook lets you inspect
-          what the user&apos;s current color scheme is, and so you can adjust UI colors accordingly.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Animations">
-        <ThemedText>
-          This template includes an example of an animated component. The{' '}
-          <ThemedText type="defaultSemiBold">components/HelloWave.tsx</ThemedText> component uses
-          the powerful{' '}
-          <ThemedText type="defaultSemiBold" style={{ fontFamily: Fonts.mono }}>
-            react-native-reanimated
-          </ThemedText>{' '}
-          library to create a waving hand animation.
-        </ThemedText>
-        {Platform.select({
-          ios: (
-            <ThemedText>
-              The <ThemedText type="defaultSemiBold">components/ParallaxScrollView.tsx</ThemedText>{' '}
-              component provides a parallax effect for the header image.
-            </ThemedText>
-          ),
-        })}
-      </Collapsible>
-    </ParallaxScrollView>
+    <SafeAreaProvider>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.fullScreenBlue}>
+          
+          {/* Título original */}
+          <Text style={styles.text}>Agendamentos!</Text>
+
+          {/* Lista de Agendamentos (List Group) */}
+          <View style={styles.listGroup}>
+            
+            <View style={styles.listGroupItem}>
+              <Text style={styles.itemText}>Infecção do Trato Urinário (ITU)                    19:45 a 23:00</Text>
+            </View>
+            
+            <View style={styles.listGroupItem}>
+              <Text style={styles.itemText}>Pneumonia Hospitalar                               14:30 a 21:45</Text>
+            </View>
+            
+            <View style={styles.listGroupItem}>
+              <Text style={styles.itemText}>Infecção de Sítio Cirúgico                         16:00 a 22:00</Text>
+            </View>
+            
+            <View style={styles.listGroupItem}>
+              <Text style={styles.itemText}>Infecção da Corrente Sanguínea                     13:00 a 18:00</Text>
+            </View>
+            
+            {/* O último item não recebe a borda inferior */}
+            <View style={[styles.listGroupItem, styles.lastItem]}>
+              <Text style={styles.itemText}>Câncer (Pulmão/Brônquios/Traqueia)                  15:00 a 20:00</Text>
+            </View>
+
+          </View>
+          <SafeAreaProvider>
+          
+    </SafeAreaProvider>
+        </View>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  headerImage: {
-    color: '#808080',
-    bottom: -90,
-    left: -35,
-    position: 'absolute',
+  container: {
+    flex: 1,
+    backgroundColor: 'blue', 
   },
-  titleContainer: {
-    flexDirection: 'row',
-    gap: 8,
+  fullScreenBlue: {
+    flex: 1,               
+    backgroundColor: '#203298',
+    justifyContent: 'flex-start', 
+    alignItems: 'flex-start',    
+    padding: 20, // Um espaçamento interno para os itens não colarem nas bordas
+  },
+  text: {
+    color: 'white',        
+    fontSize: 24, // Aumentei um pouco para destacar como título
+    fontWeight: 'bold',
+    marginBottom: 20, // Espaço entre o título e a lista
+  },
+  // Estilos da lista baseados no Bootstrap
+  listGroup: {
+    alignSelf: 'stretch', // Faz a lista ocupar toda a largura disponível
+    borderWidth: 1,
+    borderColor: '#dee2e6',
+    borderRadius: 6,
+    overflow: 'hidden', 
+    backgroundColor: '#fff', // Fundo branco para contrastar com o fundo azul da tela
+  },
+  listGroupItem: {
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#dee2e6',
+  },
+  lastItem: {
+    borderBottomWidth: 0, 
+  },
+  itemText: {
+    fontSize: 16,
+    color: '#212529',
   },
 });
+
+export default ViewBoxesWithColorAndText;
