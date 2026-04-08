@@ -1,12 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; // biblioteca de ícones
 
 const ViewBoxesWithColorAndText = () => {
   return (
     <SafeAreaProvider>
-      {/*fundo da aplicação*/}
+      {/* fundo da aplicação */}
       <SafeAreaView style={{ flex: 1, backgroundColor: '#2D43A6' }}>
        
         {/* card da interface */}
@@ -19,40 +19,45 @@ const ViewBoxesWithColorAndText = () => {
             <Text style={styles.subtitle}>....dnweibfiwbgbi</Text>
           </View>
 
-
           <View style={styles.divider} />
-
 
           <Text style={styles.sectionTitle}>Insira qual consulta deseja realizar:</Text>
 
-
-          {/* linha */}
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 20 }}>
-            {/* círculo do ícone*/}
-            <View style={{ height: 60, width: 60, backgroundColor: 'white', borderRadius: 30, flex: 0.2 }} />
-           
-            {/* blocos do texto onde vai ficar as funções*/}
+          {/* linha 1 - Cardiologista */}
+          <View style={styles.row}>
+            <Icon name="heart-pulse" size={40} color="white" style={{ flex: 0.2 }} />
             <View style={{ flex: 0.7, paddingHorizontal: 15 }}>
-              <View style={{ height: 15, backgroundColor: 'white', width: '80%', marginBottom: 8 }} />
-              <View style={{ height: 10, backgroundColor: '#FFFFFF66', width: '100%' }} />
+              <Text style={styles.name}>Cardiologista</Text>
             </View>
-
-
-            {/* círculo do lado para colocar a seta */}
-            <View style={{ height: 25, width: 25, backgroundColor: '#FFFFFF33', borderRadius: 15, flex: 0.1 }} />
+            <Icon name="chevron-right" size={25} color="#FFFFFF99" style={{ flex: 0.1 }} />
           </View>
 
-
-         
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 20 }}>
-            <View style={{ height: 60, width: 60, backgroundColor: 'white', borderRadius: 30, flex: 0.2 }} />
+          {/* linha 2 - Pneumologista */}
+          <View style={styles.row}>
+            <Icon name="lungs" size={40} color="white" style={{ flex: 0.2 }} />
             <View style={{ flex: 0.7, paddingHorizontal: 15 }}>
-              <View style={{ height: 15, backgroundColor: 'white', width: '60%', marginBottom: 8 }} />
-              <View style={{ height: 10, backgroundColor: '#FFFFFF66', width: '90%' }} />
+              <Text style={styles.name}>Pneumologista</Text>
             </View>
-            <View style={{ height: 25, width: 25, backgroundColor: '#FFFFFF33', borderRadius: 15, flex: 0.1 }} />
+            <Icon name="chevron-right" size={25} color="#FFFFFF99" style={{ flex: 0.1 }} />
           </View>
 
+          {/* linha 3 - Ortopedista */}
+          <View style={styles.row}>
+            <Icon name="bone" size={40} color="white" style={{ flex: 0.2 }} />
+            <View style={{ flex: 0.7, paddingHorizontal: 15 }}>
+              <Text style={styles.name}>Ortopedista</Text>
+            </View>
+            <Icon name="chevron-right" size={25} color="#FFFFFF99" style={{ flex: 0.1 }} />
+          </View>
+
+          {/* linha 4 - Dermatologista */}
+          <View style={styles.row}>
+            <Icon name="face-man" size={40} color="white" style={{ flex: 0.2 }} />
+            <View style={{ flex: 0.7, paddingHorizontal: 15 }}>
+              <Text style={styles.name}>Dermatologista</Text>
+            </View>
+            <Icon name="chevron-right" size={25} color="#FFFFFF99" style={{ flex: 0.1 }} />
+          </View>
 
         </View>
       </SafeAreaView>
@@ -60,7 +65,7 @@ const ViewBoxesWithColorAndText = () => {
   );
 };
 
- {/* CSS do react */}
+{/* CSS do react */}
 const styles = StyleSheet.create({
   mainCard: {
     flex: 1,
@@ -90,10 +95,17 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '600',
     marginBottom: 25,
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  name: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
   }
 });
 
-
 export default ViewBoxesWithColorAndText;
-
-
