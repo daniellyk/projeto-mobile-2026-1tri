@@ -1,42 +1,49 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
-
+import { useRouter } from 'expo-router'; // Importação necessária
 
 const ViewBoxesWithColorAndText = () => {
-  const handlePressEncerrar = () => {
-    Alert.alert('Ação', 'Você clicou em Encerrar!');
-  };
+  const router = useRouter(); // Inicializa o roteador para permitir a navegação
 
+  const handlePressEncerrar = () => {
+    // Redireciona para a tela inicial limpando o histórico (bom para finalizações)
+    router.back();
+  };
 
   const handlePressVoltar = () => {
-    Alert.alert('Ação', 'Você clicou em Voltar!');
+    // Verifica se existe uma página anterior no histórico para voltar
+    if (router.canGoBack()) {
+      router.replace('/agendamento'); 
+    } else {
+      // Se não houver histórico (ex: abriu o app direto aqui), vai para a Home
+      router.replace('/');
+    }
   };
-
 
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
-       
+        
         <View style={styles.header}>
-          <Text style={styles.titleText}>AGENDAMENTO CONCLUIDO!</Text>
+          <Text style={styles.titleText}>AGENDAMENTO CONCLUÍDO!</Text>
         </View>
-
 
         <View style={styles.content}>
+          {/* Você pode adicionar informações do agendamento aqui */}
         </View>
 
-
         <View style={styles.buttonContainer}>
+          {/* BOTÃO VOLTAR */}
           <TouchableOpacity
             style={[styles.button, styles.secondaryButton]}
-            onPress={handlePressVoltar}
+            onPress={handlePressVoltar} 
             activeOpacity={0.7}
           >
-            <Text style={styles.buttonText}>Voltar</Text>
+            <Text style={styles.buttonText}>Anteriores</Text>
           </TouchableOpacity>
 
-
+          {/* BOTÃO ENCERRAR */}
           <TouchableOpacity
             style={[styles.button, styles.primaryButton]}
             onPress={handlePressEncerrar}
@@ -46,17 +53,15 @@ const ViewBoxesWithColorAndText = () => {
           </TouchableOpacity>
         </View>
 
-
       </SafeAreaView>
     </SafeAreaProvider>
   );
 };
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'blue',
+    backgroundColor: '#203298',
   },
   header: {
     width: '100%',
@@ -79,7 +84,7 @@ const styles = StyleSheet.create({
     right: 0,
     flexDirection: 'column',
     alignItems: 'center',
-    gap: 10, // Cria o espaço entre os botões empilhados
+    gap: 10, 
   },
   button: {
     width: '90%',
@@ -96,7 +101,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
   },
   secondaryButton: {
-    backgroundColor: 'black',
+    backgroundColor: 'black', // Você pode mudar para uma cor cinza se quiser diferenciar
   },
   buttonText: {
     color: 'white',
@@ -105,8 +110,4 @@ const styles = StyleSheet.create({
   }
 });
 
-
 export default ViewBoxesWithColorAndText;
-
-
-

@@ -7,8 +7,7 @@ import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
-import FontAwesome7 from '@expo/vector-icons/FontAwesome';
-import FontAwesome8 from '@expo/vector-icons/FontAwesome6';
+import Entypo from '@expo/vector-icons/Entypo';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -30,18 +29,9 @@ export default function TabLayout() {
       <Tabs.Screen
       name="explore"
      options={{
-      title: 'Armazém', // Mudei o título também, caso queira
+      title: 'Inicio', // Mudei o título também, caso queira
       tabBarIcon: ({ color }) => (
-      <FontAwesome5 name="warehouse" size={24} color={color} />
-    ),
-  }}
-/>
-<Tabs.Screen
-  name="telafinal" // ou o nome que preferir para essa rota
-  options={{
-    title: 'Check-in', // Título que aparece abaixo do ícone
-    tabBarIcon: ({ color }) => (
-      <FontAwesome6 name="calendar-check" size={24} color={color} />
+        <Entypo name="controller-jump-to-start" size={24} color={color} />
     ),
   }}
 />
@@ -60,6 +50,15 @@ export default function TabLayout() {
     title: 'lista', // Título que aparece na aba
     tabBarIcon: ({ color }) => (
       <FontAwesome6 name="rectangle-list" size={24} color={color}  />
+    ),
+  }}
+/>
+<Tabs.Screen
+  name="telafinal" // ou o nome que preferir para essa rota
+  options={{
+    title: 'Check-in', // Título que aparece abaixo do ícone
+    tabBarIcon: ({ color }) => (
+      <FontAwesome6 name="calendar-check" size={24} color={color} />
     ),
   }}
 />
