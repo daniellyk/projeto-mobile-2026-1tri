@@ -36,20 +36,20 @@ export default function TabLayout() {
   }}
 />
 <Tabs.Screen
-  name="agendamento" // Nome da rota
-  options={{
-    title: 'Agenda', // Título que aparece na aba
-    tabBarIcon: ({ color }) => (
-      <FontAwesome5 name="calendar-day" size={24} color={color} />
-    ),
-  }}
-/>
-<Tabs.Screen
   name="listagem-doutores" // Nome da rota
   options={{
     title: 'lista', // Título que aparece na aba
     tabBarIcon: ({ color }) => (
       <FontAwesome6 name="rectangle-list" size={24} color={color}  />
+    ),
+  }}
+/>
+<Tabs.Screen
+  name="agendamento" // Nome da rota
+  options={{
+    title: 'Agenda', // Título que aparece na aba
+    tabBarIcon: ({ color }) => (
+      <FontAwesome5 name="calendar-day" size={24} color={color} />
     ),
   }}
 />
