@@ -1,44 +1,53 @@
+import { useRouter } from 'expo-router';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 const ViewBoxesWithColorAndText = () => {
+  const router = useRouter();
+
+  // Função para navegar até a página final com o horário selecionado
+  const handleTimePress = (time: string) => {
+    console.log(`Navegando com o horário: ${time}`);
+    // Certifique-se que o arquivo de destino seja app/telafinal.tsx
+    router.push({
+      pathname: '/telafinal', 
+      params: { selectedTime: time }
+    });
+  };
+
+  const agendaData = [
+    { id: 1, times: ["19:00", "19:45", "20:25", "21:00", "21:45", "22:25", "23:00"] },
+    { id: 2, times: ["15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00"] },
+    { id: 3, times: ["16:00", "16:45", "17:25", "18:00", "18:45", "19:25", "20:00"] },
+  ];
+
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
         <View style={styles.fullScreenBlue}>
-          
-          {/* Título original */}
-          <Text style={styles.text}>Agendamentos!</Text>
+          <Text style={styles.headerText}>Agendamentos!</Text>
 
-          {/* Lista de Agendamentos (List Group) */}
-          <View style={styles.listGroup}>
-            
-            <View style={styles.listGroupItem}>
-              <Text style={styles.itemText}>Infecção do Trato Urinário (ITU)                    19:45 a 23:00</Text>
-            </View>
-            
-            <View style={styles.listGroupItem}>
-              <Text style={styles.itemText}>Pneumonia Hospitalar                               14:30 a 21:45</Text>
-            </View>
-            
-            <View style={styles.listGroupItem}>
-              <Text style={styles.itemText}>Infecção de Sítio Cirúgico                         16:00 a 22:00</Text>
-            </View>
-            
-            <View style={styles.listGroupItem}>
-              <Text style={styles.itemText}>Infecção da Corrente Sanguínea                     13:00 a 18:00</Text>
-            </View>
-            
-            {/* O último item não recebe a borda inferior */}
-            <View style={[styles.listGroupItem, styles.lastItem]}>
-              <Text style={styles.itemText}>Câncer (Pulmão/Brônquios/Traqueia)                  15:00 a 20:00</Text>
-            </View>
-
-          </View>
-          <SafeAreaProvider>
-          
-    </SafeAreaProvider>
+          <ScrollView showsVerticalScrollIndicator={false}>
+            {agendaData.map((group) => (
+              <View key={group.id} style={styles.listGroup}>
+                <Text style={styles.groupTitle}>Escolha um horário:</Text>
+                
+                <View style={styles.timeGrid}>
+                  {group.times.map((time, index) => (
+                    <TouchableOpacity
+                      key={`${group.id}-${index}`}
+                      style={styles.timeButton}
+                      onPress={() => handleTimePress(time)}
+                      activeOpacity={0.7}
+                    >
+                      <Text style={styles.timeText}>{time}</Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              </View>
+            ))}
+          </ScrollView>
         </View>
       </SafeAreaView>
     </SafeAreaProvider>
@@ -48,42 +57,51 @@ const ViewBoxesWithColorAndText = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'blue', 
   },
   fullScreenBlue: {
-    flex: 1,               
+    flex: 1,
     backgroundColor: '#203298',
-    justifyContent: 'flex-start', 
-    alignItems: 'flex-start',    
-    padding: 20, // Um espaçamento interno para os itens não colarem nas bordas
+    padding: 20,
   },
-  text: {
-    color: 'white',        
-    fontSize: 24, // Aumentei um pouco para destacar como título
+  headerText: {
+    fontSize: 26,
+    color: 'white',
     fontWeight: 'bold',
-    marginBottom: 20, // Espaço entre o título e a lista
+    marginBottom: 20,
+    textAlign: 'center',
   },
-  // Estilos da lista baseados no Bootstrap
   listGroup: {
-    alignSelf: 'stretch', // Faz a lista ocupar toda a largura disponível
-    borderWidth: 1,
-    borderColor: '#dee2e6',
-    borderRadius: 6,
-    overflow: 'hidden', 
-    backgroundColor: '#fff', // Fundo branco para contrastar com o fundo azul da tela
+    backgroundColor: 'white',
+    borderRadius: 12,
+    padding: 15,
+    marginBottom: 20,
   },
-  listGroupItem: {
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#dee2e6',
+  groupTitle: {
+    fontSize: 12,
+    color: '#666',
+    marginBottom: 10,
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
   },
-  lastItem: {
-    borderBottomWidth: 0, 
+  timeGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 10,
   },
-  itemText: {
-    fontSize: 16,
-    color: '#212529',
+  timeButton: { 
+    backgroundColor: '#f0f2f5', 
+    paddingVertical: 10, 
+    paddingHorizontal: 12, 
+    borderRadius: 8, 
+    borderWidth: 1, 
+    borderColor: '#ddd', 
+    minWidth: 75, 
+    alignItems: 'center',
+  },
+  timeText: {
+    fontSize: 14,
+    color: '#203298',
+    fontWeight: '600',
   },
 });
 
