@@ -15,8 +15,9 @@ const PaginaFinalAgendamento = () => {
   const handlePressVoltar = () => {
     if (router.canGoBack()) {
       router.back();
+      router.replace('/agendamento');
     } else {
-      router.replace('/');
+
     }
   };
 
@@ -27,7 +28,7 @@ const PaginaFinalAgendamento = () => {
         {/* Parte Superior: Ícone e Título */}
         <View style={styles.content}>
           <View style={styles.successIconCircle}>
-            <Ionicons name="checkmark-done-circle" size={100} color="#4CAF50" />
+            <Ionicons name="checkmark-done-circle" size={100} color="black" />
           </View>
           
           <Text style={styles.titleText}>TUDO PRONTO!</Text>
@@ -43,7 +44,7 @@ const PaginaFinalAgendamento = () => {
             onPress={handlePressEncerrar}
             activeOpacity={0.8}
           >
-            <Text style={styles.primaryButtonText}>Ir para o Início</Text>
+            <Text style={styles.primaryButtonText}>Ir para o Inicio</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -100,7 +101,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   primaryButton: {
-    backgroundColor: '#FFFFFF', // Branco para destaque máximo
+    backgroundColor: '', // Branco para destaque máximo
     width: '85%',
     paddingVertical: 18,
     borderRadius: 15,
@@ -109,8 +110,8 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   primaryButtonText: {
-    color: '#203298', // Texto na cor do fundo para contraste
-    fontWeight: '800',
+    color: 'white', // Texto na cor do fundo para contraste
+    fontWeight: '400',
     fontSize: 18,
     textTransform: 'uppercase',
   },
@@ -118,8 +119,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     width: '85%',
     paddingVertical: 12,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.5)',
+    borderWidth: 0,
+    borderColor: '',
     borderRadius: 15,
     alignItems: 'center',
   },
