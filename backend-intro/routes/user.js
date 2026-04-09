@@ -1,0 +1,4 @@
+module.exports = [
+    { id: 1, nome: 'Admin', email: 'admin@email.com', senha: '123456' }
+  ];
+  
