@@ -4,19 +4,21 @@ import {SafeAreaView, SafeAreaProvider} from 'react-native-safe-area-context';
 import { Platform } from 'react-native';
 
 
+
+
 const login = () => {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
       <Image  
- source={require('@/assets/images/image.png')} 
+ source={require('@/assets/images/image.png')}
   style={styles.imagemlocal}
-  resizeMode="contain"
-/> 
-    
+ 
+/>
+   
         <View style={styles.fullScreenBlue}>
           <Text style={styles.text}>MedClinic</Text>
-        
+       
         </View>
       </SafeAreaView>
     </SafeAreaProvider>
@@ -24,11 +26,15 @@ const login = () => {
 };
 
 
+
+
 const styles = StyleSheet.create({
   imagemlocal: {
 
 
-  }, 
+
+
+  },
   container: {
     flex: 1,
   },
@@ -38,10 +44,11 @@ const styles = StyleSheet.create({
     alignItems: 'center' // centraliza horizontalmente
   },
   text: {
-    color: 'white', 
+    color: 'white',
     fontSize: 40,
     fontFamily: 'crimson text',
   }
 });
+
 
 export default login;
