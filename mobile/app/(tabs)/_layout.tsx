@@ -5,6 +5,9 @@ import { HapticTab } from '@/components/haptic-tab';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+import Entypo from '@expo/vector-icons/Entypo';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -19,17 +22,46 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
+          title: 'home',
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
         }}
       />
       <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
-        }}
-      />
+      name="explore"
+     options={{
+      title: 'Inicio', // Mudei o título também, caso queira
+      tabBarIcon: ({ color }) => (
+        <Entypo name="controller-jump-to-start" size={24} color={color} />
+    ),
+  }}
+/>
+<Tabs.Screen
+  name="listagem-doutores" // Nome da rota
+  options={{
+    title: 'lista', // Título que aparece na aba
+    tabBarIcon: ({ color }) => (
+      <FontAwesome6 name="rectangle-list" size={24} color={color}  />
+    ),
+  }}
+/>
+<Tabs.Screen
+  name="agendamento" // Nome da rota
+  options={{
+    title: 'Agenda', // Título que aparece na aba
+    tabBarIcon: ({ color }) => (
+      <FontAwesome5 name="calendar-day" size={24} color={color} />
+    ),
+  }}
+/>
+<Tabs.Screen
+  name="telafinal" // ou o nome que preferir para essa rota
+  options={{
+    title: 'Check-in', // Título que aparece abaixo do ícone
+    tabBarIcon: ({ color }) => (
+      <FontAwesome6 name="calendar-check" size={24} color={color} />
+    ),
+  }}
+/>
     </Tabs>
   );
 }
