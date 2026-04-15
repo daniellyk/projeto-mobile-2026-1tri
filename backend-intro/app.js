@@ -1,13 +1,15 @@
 const express = require('express');
+const rAuth = require('./routes/auth');
+const rMedicos = require('./routes/medicos');
+const rPacientes = require('./routes/pacientes');
+const rAgendamentos = require('./routes/agendamentos');
+
 const app = express();
-const PORT = process.env.PORT || 3000;
+app.use(express.json());
 
-app.use(express.json()); // para receber JSON no body
+app.use("/", rAuth);
+app.use("/medicos", rMedicos);
+app.use("/pacientes", rPacientes);
+app.use("/agendamentos", rAgendamentos);
 
-app.get('/', (req, res) => {
-  res.json({ message: 'Servidor rodando -- olá, backend!' });
-});
-
-app.listen(PORT, () => {
-  console.log(`Servidor escutando na porta ${PORT}`);
-});
+app.listen(3000, () => console.log("Servidor Online"))
