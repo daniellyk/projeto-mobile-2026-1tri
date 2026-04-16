@@ -1,0 +1,10 @@
+const express = require("express");
+const C = require("../controllers/controllers-pacientes");
+const { authMiddleware } = require("../utils/authmiddleware");
+const router = express.Router();
+router.get("/", authMiddleware, C.listar);
+router.get("/:id", authMiddleware, C.buscar);
+router.post("/", authMiddleware, C.criar);
+router.put("/:id", authMiddleware, C.editar);
+router.delete("/:id", authMiddleware, C.excluir);
+module.exports = router;

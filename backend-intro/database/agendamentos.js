@@ -1,17 +1,3 @@
-// models/models-agendamentos.js
-
-const dbAgendamentos = require('../database/agendamentos');
-
-const listarTodos = () => {
-    return dbAgendamentos;
-};
-
-// Exemplo de função para buscar por ID
-const buscarPorId = (id) => {
-    return dbAgendamentos.find(agendamento => agendamento.id === parseInt(id));
-};
-
-module.exports = {
-    listarTodos,
-    buscarPorId
-};
+ let agendamentos = [
+    { id: 1, id_medico: 1, id_paciente: 1, data: "2026-04-20", hora: "10:00" }
+  ];
