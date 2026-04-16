@@ -1,92 +1,80 @@
-import React from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useRouter } from 'expo-router';
+import React, { useState } from 'react';
+import { ActivityIndicator, Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import api from '../../services/api';
 
-export default function HomeScreen() {
+export default function Login() {
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  const handleLogin = async () => {
+    if (!email || !senha) {
+      Alert.alert("Erro", "Preencha tudo!");
+      return;
+    }
+    try {
+      setLoading(true);
+      const response = await api.post('/login', { email, senha });
+      await AsyncStorage.setItem('@token', response.data.token);
+      router.replace('/(tabs)/agendamento');
+    } catch (error) {
+      Alert.alert("Erro", "Login falhou");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <LinearGradient
-      colors={["#0b1c3a", "#2a3b7a"]}
-      style={styles.container}
-    >
-      <Image
-        source={require("../../assets/images/image.png")}
-        style={styles.image}
+    <View style={styles.container}>
+      <Text style={styles.title}>Login</Text>
+      <TextInput 
+        style={styles.input} 
+        placeholder="Email" 
+        onChangeText={setEmail} 
       />
-
-      <Text style={styles.title}>MedClinic</Text>
-
-      <View style={styles.card}>
-        <Image
-          source={require("../../assets/images/doctor.png")}
-          style={styles.image}
-          
-        />
-      </View>
-
-      <Text style={styles.description}>
-        Agendamento de exames e consultas simples, rápido e fácil.
-      </Text>
-      <Text style={styles.description}>
-        Acesse sua conta e agende já!
-      </Text>
-
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>entrar</Text>
+      <TextInput 
+        style={styles.input} 
+        placeholder="Senha" 
+        secureTextEntry 
+        onChangeText={setSenha} 
+      />
+      <TouchableOpacity style={styles.button} onPress={handleLogin}>
+        {loading ? <ActivityIndicator color="#fff" /> : <Text style={styles.buttonText}>Entrar</Text>}
       </TouchableOpacity>
-    </LinearGradient>
-
-    
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 20,
+  container: { 
+    flex: 1, 
+    justifyContent: 'center', 
+    padding: 20, 
+    backgroundColor: '#fff' 
   },
-  Image: {
-    width: 60,
-    height: 60,
-    marginBottom: 10,
+  title: { 
+    fontSize: 24, 
+    marginBottom: 20, 
+    textAlign: 'center' 
   },
-  title: {
-    fontSize: 30,
-    color: 'white',
-    fontWeight: 'bold',
-    marginBottom: 20,
-    textAlign: 'center',
-
+  input: { 
+    borderWidth: 1, 
+    borderColor: '#ccc', 
+    padding: 10, 
+    borderRadius: 5, 
+    marginBottom: 10 
   },
-  card: {
-    width: "90%",
-    height: 180,
-    backgroundColor: "#eee",
-    borderRadius: 20,
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 30,
+  button: { 
+    backgroundColor: '#007AFF', 
+    padding: 15, 
+    borderRadius: 5, 
+    alignItems: 'center' 
   },
-  image: {
-    width: 120,
-    height: 120,
-  },
-  description: {
-    color: "#fff",
-    textAlign: "center",
-    marginBottom: 5,
-    fontSize: 16,
-  },
-  button: {
-    marginTop: 30,
-    backgroundColor: "#d9d9d9",
-    paddingVertical: 12,
-    paddingHorizontal: 40,
-    borderRadius: 25,
-  },
-  buttonText: {
-    fontSize: 18,
-    color: "#000",
-  },
+  buttonText: { 
+    color: '#fff', 
+    fontWeight: 'bold' 
+  }
 });
