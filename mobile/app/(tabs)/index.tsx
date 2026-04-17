@@ -1,58 +1,48 @@
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
-import React, { useState } from "react";
-import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View, Alert } from "react-native";
+import React from "react";
+import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 export default function HomeScreen() {
   const router = useRouter();
 
-  // Estados para capturar os dados do usuário
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
-
-  const handleLogin = async () => {
-    if (!email || !senha) {
-      Alert.alert("Erro", "Preencha todos os campos.");
-      return;
-    }
-
+  // Função para navegar ao clicar no botão
+  const handleLogin = () => {
     try {
-      // DICA: Se usar celular físico, troque 'localhost' pelo seu IP (ex: 192.168.x.x)
-      const response = await fetch("http://192.168.1.11:3000/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, senha }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        console.log("Sucesso:", data.token);
-        router.replace("/(tabs)/explore");
-      } else {
-        Alert.alert("Erro", data.mensagem || "Credenciais inválidas");
-      }
+      // Substitua pelo caminho correto da sua dashboard/tela principal
+      router.replace("/(tabs)/explore");
     } catch (error) {
-      console.log("Erro de conexão:", error);
-      Alert.alert("Erro", "Não foi possível conectar ao servidor.");
+      console.log("Erro ao navegar:", error);
     }
   };
 
   return (
-    <LinearGradient colors={["#2D43A6", "#141D4C"]} style={styles.container}>
-      <Image source={require("../../assets/images/image-removebg-preview.png")} style={styles.logoTop} />
-      
+    <LinearGradient
+      // Degradê sofisticado combinando com #2D43A6
+      colors={["#2D43A6", "#141D4C"]}
+      style={styles.container}
+    >
+      <Image
+        source={require("../../assets/images/image-removebg-preview.png")}
+        style={styles.logoTop}
+      />
+
       <Text style={styles.title}>MedClinic</Text>
 
       <View style={styles.card}>
-        <Image source={require("../../assets/images/image-removebg-preview (2).png")} style={styles.imageDoctor} />
+        <Image
+          source={require("../../assets/images/image-removebg-preview (2).png")}
+          style={styles.imageDoctor} 
+        />
       </View>
 
       <View style={styles.textSection}>
-        <Text style={styles.description}>Agendamento de exames e consultas simples, rápido e fácil.</Text>
-        <Text style={styles.subDescription}>Acesse sua conta e agende já!</Text>
+        <Text style={styles.description}>
+          Agendamento de exames e consultas simples, rápido e fácil.
+        </Text>
+        <Text style={styles.subDescription}>
+          Acesse sua conta e agende já!
+        </Text>
       </View>
 
       <View style={styles.inputContainer}>
@@ -61,8 +51,6 @@ export default function HomeScreen() {
           placeholder="Email"
           placeholderTextColor="rgba(255, 255, 255, 0.5)"
           autoCapitalize="none"
-          value={email}
-          onChangeText={setEmail}
         />
 
         <TextInput
@@ -70,25 +58,29 @@ export default function HomeScreen() {
           placeholder="Senha"
           placeholderTextColor="rgba(255, 255, 255, 0.5)"
           secureTextEntry
-          value={senha}
-          onChangeText={setSenha}
         />
       </View>
 
-      <TouchableOpacity style={styles.button} activeOpacity={0.8} onPress={handleLogin}>
+      {/* Botão Entrar: Branco com letras pretas e Funcional */}
+      <TouchableOpacity
+        style={styles.button}
+        activeOpacity={0.8}
+        onPress={handleLogin}
+      >
         <Text style={styles.buttonText}>entrar</Text>
       </TouchableOpacity>
 
+      {/* Texto de Cadastro: Estético */}
       <TouchableOpacity style={styles.signUpButton} activeOpacity={0.7}>
         <Text style={styles.signUpText}>
           Não tem uma conta? <Text style={styles.signUpBold}>CADASTRE-SE</Text>
         </Text>
       </TouchableOpacity>
+
     </LinearGradient>
   );
 }
 
-// OS ESTILOS QUE ESTAVAM FALTANDO:
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -146,7 +138,7 @@ const styles = StyleSheet.create({
   input: {
     width: "100%",
     height: 50,
-    backgroundColor: "rgba(255, 255, 255, 0.18)",
+    backgroundColor: "rgba(255, 255, 255, 0.18)", // Efeito vidro
     borderRadius: 10,
     paddingHorizontal: 15,
     color: "#fff",
