@@ -1,24 +1,48 @@
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
-import React from "react";
-import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import React, { useState } from "react";
+import { Alert, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 export default function HomeScreen() {
   const router = useRouter();
 
-  // Função para navegar ao clicar no botão
-  const handleLogin = () => {
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+
+  const handleLogin = async () => {
+    if (!email || !senha) {
+      Alert.alert("Erro", "Preencha todos os campos.");
+      return;
+    }
+
     try {
-      // Substitua pelo caminho correto da sua dashboard/tela principal
-      router.replace("/(tabs)/explore");
+      const response = await fetch("http://localhost:3000/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email.trim().toLowerCase(),
+          senha: senha.trim(),
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.status === 200) {
+        console.log("Sucesso! Token:", data.token);
+        router.replace("/(tabs)/explore");
+      } else {
+        Alert.alert("Erro", data.mensagem || "Credenciais inválidas.");
+      }
     } catch (error) {
-      console.log("Erro ao navegar:", error);
+      console.log(error);
+      Alert.alert("Erro", "Não foi possível conectar ao servidor. Verifique se o backend está rodando.");
     }
   };
 
   return (
     <LinearGradient
-      // Degradê sofisticado combinando com #2D43A6
       colors={["#2D43A6", "#141D4C"]}
       style={styles.container}
     >
@@ -51,6 +75,8 @@ export default function HomeScreen() {
           placeholder="Email"
           placeholderTextColor="rgba(255, 255, 255, 0.5)"
           autoCapitalize="none"
+          value={email}
+          onChangeText={setEmail}
         />
 
         <TextInput
@@ -58,10 +84,11 @@ export default function HomeScreen() {
           placeholder="Senha"
           placeholderTextColor="rgba(255, 255, 255, 0.5)"
           secureTextEntry
+          value={senha}
+          onChangeText={setSenha}
         />
       </View>
 
-      {/* Botão Entrar: Branco com letras pretas e Funcional */}
       <TouchableOpacity
         style={styles.button}
         activeOpacity={0.8}
@@ -70,113 +97,40 @@ export default function HomeScreen() {
         <Text style={styles.buttonText}>entrar</Text>
       </TouchableOpacity>
 
-      {/* Texto de Cadastro: Estético */}
       <TouchableOpacity style={styles.signUpButton} activeOpacity={0.7}>
         <Text style={styles.signUpText}>
           Não tem uma conta? <Text style={styles.signUpBold}>CADASTRE-SE</Text>
         </Text>
       </TouchableOpacity>
-
     </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 25,
-  },
-  logoTop: {
-    width: 50,
-    height: 50,
-    marginBottom: 5,
-  },
-  title: {
-    fontSize: 30,
-    color: 'white',
-    fontWeight: 'bold',
-    marginBottom: 15,
-  },
+  container: { flex: 1, alignItems: "center", justifyContent: "center", padding: 25 },
+  logoTop: { width: 50, height: 50, marginBottom: 5 },
+  title: { fontSize: 30, color: 'white', fontWeight: 'bold', marginBottom: 15 },
   card: {
-    width: "80%",
-    height: 120,
-    backgroundColor: "rgba(255, 255, 255, 0.1)",
-    borderRadius: 20,
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 15,
-    borderWidth: 1,
-    borderColor: "rgba(255, 255, 255, 0.15)",
+    width: "80%", height: 120, backgroundColor: "rgba(255, 255, 255, 0.1)",
+    borderRadius: 20, justifyContent: "center", alignItems: "center",
+    marginBottom: 15, borderWidth: 1, borderColor: "rgba(255, 255, 255, 0.15)"
   },
-  imageDoctor: {
-    width: 80,
-    height: 80,
-  },
-  textSection: {
-    marginBottom: 20,
-    alignItems: 'center',
-  },
-  description: {
-    color: "#fff",
-    textAlign: "center",
-    fontSize: 14,
-    lineHeight: 20,
-    opacity: 0.85,
-  },
-  subDescription: {
-    color: "#fff",
-    textAlign: "center",
-    fontSize: 15,
-    fontWeight: 'bold',
-    marginTop: 5,
-  },
-  inputContainer: {
-    width: "100%",
-  },
+  imageDoctor: { width: 80, height: 80 },
+  textSection: { marginBottom: 20, alignItems: 'center' },
+  description: { color: "#fff", textAlign: "center", fontSize: 14, opacity: 0.85 },
+  subDescription: { color: "#fff", textAlign: "center", fontSize: 15, fontWeight: 'bold', marginTop: 5 },
+  inputContainer: { width: "100%" },
   input: {
-    width: "100%",
-    height: 50,
-    backgroundColor: "rgba(255, 255, 255, 0.18)", // Efeito vidro
-    borderRadius: 10,
-    paddingHorizontal: 15,
-    color: "#fff",
-    marginBottom: 12,
-    borderWidth: 1,
-    borderColor: "rgba(255, 255, 255, 0.3)",
+    width: "100%", height: 50, backgroundColor: "rgba(255, 255, 255, 0.18)",
+    borderRadius: 10, paddingHorizontal: 15, color: "#fff", marginBottom: 12,
+    borderWidth: 1, borderColor: "rgba(255, 255, 255, 0.3)"
   },
   button: {
-    marginTop: 10,
-    backgroundColor: "#ffffff",
-    width: "100%",
-    height: 50,
-    borderRadius: 10,
-    justifyContent: "center",
-    alignItems: "center",
-    elevation: 5,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
+    marginTop: 10, backgroundColor: "#ffffff", width: "100%", height: 50,
+    borderRadius: 10, justifyContent: "center", alignItems: "center", elevation: 5
   },
-  buttonText: {
-    fontSize: 18,
-    color: "#000",
-    fontWeight: "bold",
-    textTransform: 'lowercase',
-  },
-  signUpButton: {
-    marginTop: 20,
-    padding: 10,
-  },
-  signUpText: {
-    color: "#fff",
-    fontSize: 14,
-    opacity: 0.9,
-  },
-  signUpBold: {
-    fontWeight: "bold",
-    textDecorationLine: "underline",
-  },
+  buttonText: { fontSize: 18, color: "#000", fontWeight: "bold" },
+  signUpButton: { marginTop: 20 },
+  signUpText: { color: "#fff", fontSize: 14 },
+  signUpBold: { fontWeight: "bold", textDecorationLine: "underline" },
 });
