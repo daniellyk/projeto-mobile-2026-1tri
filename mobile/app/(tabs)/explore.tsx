@@ -1,19 +1,15 @@
-import { useRouter } from 'expo-router'; // Importação do router do Expo
+import { useRouter } from 'expo-router';
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const ViewBoxesWithColorAndText = () => {
-  const router = useRouter(); // Inicializando o hook do router
+  const router = useRouter();
 
-  // Função que faz a navegação exatamente como você pediu
   const handlePress = (especialidade: string) => {
-    // Aqui você define o caminho da sua página de médicos
-    // Se quiser que o usuário NÃO possa voltar, use router.replace
-    // Se quiser permitir a volta, use router.push
     router.push({
-      pathname: "/(tabs)/listagem-doutores", // substitua pelo caminho real da sua página
+      pathname: "/(tabs)/listagem-doutores",
       params: { especialidade: especialidade }
     });
   };
@@ -33,7 +29,6 @@ const ViewBoxesWithColorAndText = () => {
 
           <Text style={styles.sectionTitle}>Selecione a especialidade:</Text>
 
-          {/* Cardiologista */}
           <TouchableOpacity 
             style={styles.row} 
             onPress={() => handlePress('Cardiologista')}
@@ -46,7 +41,6 @@ const ViewBoxesWithColorAndText = () => {
             <Icon name="chevron-right" size={25} color="#FFFFFF99" style={{ flex: 0.1 }} />
           </TouchableOpacity>
 
-          {/* Pneumologista */}
           <TouchableOpacity 
             style={styles.row} 
             onPress={() => handlePress('Pneumologista')}
@@ -59,7 +53,6 @@ const ViewBoxesWithColorAndText = () => {
             <Icon name="chevron-right" size={25} color="#FFFFFF99" style={{ flex: 0.1 }} />
           </TouchableOpacity>
 
-          {/* Ortopedista */}
           <TouchableOpacity 
             style={styles.row} 
             onPress={() => handlePress('Ortopedista')} 
@@ -72,7 +65,6 @@ const ViewBoxesWithColorAndText = () => {
             <Icon name="chevron-right" size={25} color="#FFFFFF99" style={{ flex: 0.1 }} />
           </TouchableOpacity>
 
-          {/* Dermatologista */}
           <TouchableOpacity 
             style={styles.row} 
             onPress={() => handlePress('Dermatologista')}
@@ -85,7 +77,6 @@ const ViewBoxesWithColorAndText = () => {
             <Icon name="chevron-right" size={25} color="#FFFFFF99" style={{ flex: 0.1 }} />
           </TouchableOpacity>
 
-          {/* Neurologista */}
           <TouchableOpacity 
             style={styles.row} 
             onPress={() => handlePress('Neurologista')}
