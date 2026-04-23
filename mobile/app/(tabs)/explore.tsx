@@ -1,63 +1,102 @@
+import { useRouter } from 'expo-router'; // Importação do router do Expo
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; // biblioteca de ícones
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const ViewBoxesWithColorAndText = () => {
+  const router = useRouter(); // Inicializando o hook do router
+
+  // Função que faz a navegação exatamente como você pediu
+  const handlePress = (especialidade: string) => {
+    // Aqui você define o caminho da sua página de médicos
+    // Se quiser que o usuário NÃO possa voltar, use router.replace
+    // Se quiser permitir a volta, use router.push
+    router.push({
+      pathname: "/(tabs)/listagem-doutores", // substitua pelo caminho real da sua página
+      params: { especialidade: especialidade }
+    });
+  };
+
   return (
     <SafeAreaProvider>
-      {/* fundo da aplicação */}
       <SafeAreaView style={{ flex: 1, backgroundColor: '#2D43A6' }}>
-       
-        {/* card da interface */}
+        
         <View style={styles.mainCard}>
-         
-          {/* header */}
+          
           <View style={{ marginBottom: 30 }}>
-            <View style={{ width: 30, height: 30, backgroundColor: '#FFFFFF33', borderRadius: 5 }} /> {/* Simulando Ícone Menu */}
-            <Text style={styles.title}>Bom Dia, Fulano{"\n"}</Text>
-            <Text style={styles.subtitle}>....dnweibfiwbgbi</Text>
+            <View style={{ width: 30, height: 30, backgroundColor: '#FFFFFF33', borderRadius: 5 }} />
+            <Text style={styles.title}>Bom Dia, Mateus!{"\n"}</Text>
           </View>
 
           <View style={styles.divider} />
 
-          <Text style={styles.sectionTitle}>Insira qual consulta deseja realizar:</Text>
+          <Text style={styles.sectionTitle}>Selecione a especialidade:</Text>
 
-          {/* linha 1 - Cardiologista */}
-          <View style={styles.row}>
+          {/* Cardiologista */}
+          <TouchableOpacity 
+            style={styles.row} 
+            onPress={() => handlePress('Cardiologista')}
+            activeOpacity={0.7}
+          >
             <Icon name="heart-pulse" size={40} color="white" style={{ flex: 0.2 }} />
             <View style={{ flex: 0.7, paddingHorizontal: 15 }}>
               <Text style={styles.name}>Cardiologista</Text>
             </View>
             <Icon name="chevron-right" size={25} color="#FFFFFF99" style={{ flex: 0.1 }} />
-          </View>
+          </TouchableOpacity>
 
-          {/* linha 2 - Pneumologista */}
-          <View style={styles.row}>
+          {/* Pneumologista */}
+          <TouchableOpacity 
+            style={styles.row} 
+            onPress={() => handlePress('Pneumologista')}
+            activeOpacity={0.7}
+          >
             <Icon name="lungs" size={40} color="white" style={{ flex: 0.2 }} />
             <View style={{ flex: 0.7, paddingHorizontal: 15 }}>
               <Text style={styles.name}>Pneumologista</Text>
             </View>
             <Icon name="chevron-right" size={25} color="#FFFFFF99" style={{ flex: 0.1 }} />
-          </View>
+          </TouchableOpacity>
 
-          {/* linha 3 - Ortopedista */}
-          <View style={styles.row}>
+          {/* Ortopedista */}
+          <TouchableOpacity 
+            style={styles.row} 
+            onPress={() => handlePress('Ortopedista')} 
+            activeOpacity={0.7}
+          >
             <Icon name="bone" size={40} color="white" style={{ flex: 0.2 }} />
             <View style={{ flex: 0.7, paddingHorizontal: 15 }}>
               <Text style={styles.name}>Ortopedista</Text>
             </View>
             <Icon name="chevron-right" size={25} color="#FFFFFF99" style={{ flex: 0.1 }} />
-          </View>
+          </TouchableOpacity>
 
-          {/* linha 4 - Dermatologista */}
-          <View style={styles.row}>
+          {/* Dermatologista */}
+          <TouchableOpacity 
+            style={styles.row} 
+            onPress={() => handlePress('Dermatologista')}
+            activeOpacity={0.7}
+          >
             <Icon name="face-man" size={40} color="white" style={{ flex: 0.2 }} />
             <View style={{ flex: 0.7, paddingHorizontal: 15 }}>
               <Text style={styles.name}>Dermatologista</Text>
             </View>
             <Icon name="chevron-right" size={25} color="#FFFFFF99" style={{ flex: 0.1 }} />
-          </View>
+          </TouchableOpacity>
+
+          {/* Neurologista */}
+          <TouchableOpacity 
+            style={styles.row} 
+            onPress={() => handlePress('Neurologista')}
+            activeOpacity={0.7}
+          >
+            <Icon name="brain" size={40} color="white" style={{ flex: 0.2 }} />
+            <View style={{ flex: 0.7, paddingHorizontal: 15 }}>
+              <Text style={styles.name}>Neurologista</Text>
+            </View>
+            <Icon name="chevron-right" size={25} color="#FFFFFF99" style={{ flex: 0.1 }} />
+          </TouchableOpacity>
 
         </View>
       </SafeAreaView>
@@ -65,7 +104,6 @@ const ViewBoxesWithColorAndText = () => {
   );
 };
 
-{/* CSS do react */}
 const styles = StyleSheet.create({
   mainCard: {
     flex: 1,
@@ -100,6 +138,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 20,
+    paddingVertical: 5,
   },
   name: {
     color: 'white',
