@@ -62,7 +62,7 @@ const ViewBoxesWithColorAndText = () => {
           {/* Ortopedista */}
           <TouchableOpacity 
             style={styles.row} 
-            onPress={() => handlePress('Ortopedista')}
+            onPress={() => handlePress('Ortopedista')} 
             activeOpacity={0.7}
           >
             <Icon name="bone" size={40} color="white" style={{ flex: 0.2 }} />
