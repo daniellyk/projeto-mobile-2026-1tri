@@ -46,6 +46,16 @@ def test_fluxo_login_web():
         resultado = wait.until(EC.presence_of_element_located((By.XPATH, validacao_xpath)))
         
         assert resultado.is_displayed()
+        
+        time.sleep(2)
+        driver.save_screenshot("login_sucesso.png")
+
+    except Exception as e:
+        driver.save_screenshot("erro_no_teste.png")
+        raise e
 
     finally:
         driver.quit()
+
+if __name__ == "__main__":
+    test_fluxo_login_web()
