@@ -4,6 +4,13 @@ import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 const data = [
+<<<<<<< HEAD
+  { id: 1, label: 'Dr. Carlos Alves' },
+  { id: 2, label: 'Dra. Marilia Neves' },
+  { id: 3, label: 'Dr. Gabriel Henrique' },
+  { id: 4, label: 'Dr. Enzo Gabriel' },
+  { id: 5, label: 'Dra. Gabriela Souza' },
+=======
   { label: 'Dr. Roberto Silva', especialidade: 'Cardiologia' },
   { label: 'Dra. Ana Beatriz', especialidade: 'Cardiologia' },
   { label: 'Dr. Marcos Pontes', especialidade: 'Cardiologia' },
@@ -19,6 +26,7 @@ const data = [
   { label: 'Dr. Charles Xavier', especialidade: 'Neurologista' },
   { label: 'Dra. Jean Grey', especialidade: 'Neurologista' },
   { label: 'Dr. Stephen Strange', especialidade: 'Neurologista' },
+>>>>>>> 18ca7f55cc6182a299e6577fed9b92b22713dbf3
 ];
 
 export default function ListaMedicosScreen() {
