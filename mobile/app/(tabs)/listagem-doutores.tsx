@@ -5,10 +5,10 @@ import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native
 
 const data = [
   { id: 1, label: 'Dr. Carlos Alves' },
-  { id: 2, label: 'Dr. Marilia Neves' },
+  { id: 2, label: 'Dra. Marilia Neves' },
   { id: 3, label: 'Dr. Gabriel Henrique' },
   { id: 4, label: 'Dr. Enzo Gabriel' },
-  { id: 5, label: 'Dr. Gabriela Souza' },
+  { id: 5, label: 'Dra. Gabriela Souza' },
 ];
 
 
