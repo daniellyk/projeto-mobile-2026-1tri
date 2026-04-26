@@ -3,5 +3,5 @@ guia 1:Sobre o Projeto
 guia 2:Considerações finais
 guia 3: O que cada um fez no trabalho
 guia 4: Histórias de usuários
-guia 5: 
-guia 6: Testes Automatizados com Python via pseudocódigo
+guia 5: Testes Automatizados com Python via pseudocódigo
+guia 6: Casos de uso
