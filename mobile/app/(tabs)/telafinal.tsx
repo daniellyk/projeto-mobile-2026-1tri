@@ -1,14 +1,14 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
+import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import { Ionicons } from '@expo/vector-icons'; // Importando ícone para o visual final
+import React from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 const PaginaFinalAgendamento = () => {
   const router = useRouter();
 
   const handlePressEncerrar = () => {
-    // Replace limpa a pilha para o usuário não voltar ao agendamento
+    
     router.replace('/'); 
   };
 
@@ -64,7 +64,7 @@ const PaginaFinalAgendamento = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#203298', // Mantendo sua cor principal
+    backgroundColor: '#203298', 
   },
   content: {
     flex: 1,
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   primaryButton: {
-    backgroundColor: '', // Branco para destaque máximo
+    backgroundColor: '', 
     width: '85%',
     paddingVertical: 18,
     borderRadius: 15,
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   primaryButtonText: {
-    color: 'white', // Texto na cor do fundo para contraste
+    color: 'white', 
     fontWeight: '400',
     fontSize: 18,
     textTransform: 'uppercase',
