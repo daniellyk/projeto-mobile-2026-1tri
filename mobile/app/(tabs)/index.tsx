@@ -8,9 +8,16 @@ export default function HomeScreen() {
 
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  
+  const [erroVazio, setErroVazio] = useState(false);
+  const [erroInvalido, setErroInvalido] = useState(false);
 
   const handleLogin = async () => {
+    setErroVazio(false);
+    setErroInvalido(false);
+
     if (!email || !senha) {
+      setErroVazio(true); 
       Alert.alert("Erro", "Preencha todos os campos.");
       return;
     }
@@ -33,11 +40,12 @@ export default function HomeScreen() {
         console.log("Sucesso! Token:", data.token);
         router.replace("/(tabs)/explore");
       } else {
+        setErroInvalido(true);
         Alert.alert("Erro", data.mensagem || "Credenciais inválidas.");
       }
     } catch (error) {
       console.log(error);
-      Alert.alert("Erro", "Não foi possível conectar ao servidor. Verifique se o backend está rodando.");
+      Alert.alert("Erro", "Não foi possível conectar ao servidor.");
     }
   };
 
@@ -89,6 +97,14 @@ export default function HomeScreen() {
         />
       </View>
 
+      {erroVazio && (
+        <Text style={styles.errorText}>campos obrigatórios</Text>
+      )}
+
+      {erroInvalido && (
+        <Text style={styles.errorText}>credenciais inválidas</Text>
+      )}
+
       <TouchableOpacity
         style={styles.button}
         activeOpacity={0.8}
@@ -133,4 +149,5 @@ const styles = StyleSheet.create({
   signUpButton: { marginTop: 20 },
   signUpText: { color: "#fff", fontSize: 14 },
   signUpBold: { fontWeight: "bold", textDecorationLine: "underline" },
+  errorText: { color: '#ff4d4d', marginBottom: 10, fontWeight: 'bold' }
 });

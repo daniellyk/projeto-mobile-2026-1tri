@@ -1,2 +1,1 @@
 # [Readme do projeto](https://docs.google.com/document/d/1oUbmeQf0jLlL9kKk_PKC5l_KwAG5KhBFTCTx7yo61Bc/edit?usp=sharing)<br><br>
- É aconselhável ver primeiro os erros (estão na guia 2 da readme), para entender a fase atual do trabalho. 
