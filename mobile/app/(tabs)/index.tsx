@@ -98,7 +98,9 @@ export default function HomeScreen() {
       </View>
 
       {erroVazio && (
-        <Text style={styles.errorText}>campos obrigatórios</Text>
+        <Text 
+        testID="msg-erro-vazio"
+        style={styles.errorText}>campos obrigatórios</Text>
       )}
 
       {erroInvalido && (
@@ -109,6 +111,8 @@ export default function HomeScreen() {
         style={styles.button}
         activeOpacity={0.8}
         onPress={handleLogin}
+        accessibilityLabel="botao-entrar" 
+        testID="botao-entrar"
       >
         <Text style={styles.buttonText}>entrar</Text>
       </TouchableOpacity>
