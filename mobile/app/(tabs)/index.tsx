@@ -1,98 +1,153 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
-
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+import { LinearGradient } from "expo-linear-gradient";
+import { useRouter } from "expo-router";
+import React, { useState } from "react";
+import { Alert, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 export default function HomeScreen() {
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+  const router = useRouter();
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  
+  const [erroVazio, setErroVazio] = useState(false);
+  const [erroInvalido, setErroInvalido] = useState(false);
+
+  const handleLogin = async () => {
+    setErroVazio(false);
+    setErroInvalido(false);
+
+    if (!email || !senha) {
+      setErroVazio(true); 
+      Alert.alert("Erro", "Preencha todos os campos.");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:3000/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email.trim().toLowerCase(),
+          senha: senha.trim(),
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.status === 200) {
+        console.log("Sucesso! Token:", data.token);
+        router.replace("/(tabs)/explore");
+      } else {
+        setErroInvalido(true);
+        Alert.alert("Erro", data.mensagem || "Credenciais inválidas.");
+      }
+    } catch (error) {
+      console.log(error);
+      Alert.alert("Erro", "Não foi possível conectar ao servidor.");
+    }
+  };
+
+  return (
+    <LinearGradient
+      colors={["#2D43A6", "#141D4C"]}
+      style={styles.container}
+    >
+      <Image
+        source={require("../../assets/images/image-removebg-preview.png")}
+        style={styles.logoTop}
+      />
+
+      <Text style={styles.title}>MedClinic</Text>
+
+      <View style={styles.card}>
+        <Image
+          source={require("../../assets/images/image-removebg-preview (2).png")}
+          style={styles.imageDoctor} 
+        />
+      </View>
+
+      <View style={styles.textSection}>
+        <Text style={styles.description}>
+          Agendamento de exames e consultas simples, rápido e fácil.
+        </Text>
+        <Text style={styles.subDescription}>
+          Acesse sua conta e agende já!
+        </Text>
+      </View>
+
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          placeholderTextColor="rgba(255, 255, 255, 0.5)"
+          autoCapitalize="none"
+          value={email}
+          onChangeText={setEmail}
+        />
+
+        <TextInput
+          style={styles.input}
+          placeholder="Senha"
+          placeholderTextColor="rgba(255, 255, 255, 0.5)"
+          secureTextEntry
+          value={senha}
+          onChangeText={setSenha}
+        />
+      </View>
+
+      {erroVazio && (
+        <Text style={styles.errorText}>campos obrigatórios</Text>
+      )}
+
+      {erroInvalido && (
+        <Text style={styles.errorText}>credenciais inválidas</Text>
+      )}
+
+      <TouchableOpacity
+        style={styles.button}
+        activeOpacity={0.8}
+        onPress={handleLogin}
+      >
+        <Text style={styles.buttonText}>entrar</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.signUpButton} activeOpacity={0.7}>
+        <Text style={styles.signUpText}>
+          Não tem uma conta? <Text style={styles.signUpBold}>CADASTRE-SE</Text>
+        </Text>
+      </TouchableOpacity>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  container: { flex: 1, alignItems: "center", justifyContent: "center", padding: 25 },
+  logoTop: { width: 50, height: 50, marginBottom: 5 },
+  title: { fontSize: 30, color: 'white', fontWeight: 'bold', marginBottom: 15 },
+  card: {
+    width: "80%", height: 120, backgroundColor: "rgba(255, 255, 255, 0.1)",
+    borderRadius: 20, justifyContent: "center", alignItems: "center",
+    marginBottom: 15, borderWidth: 1, borderColor: "rgba(255, 255, 255, 0.15)"
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  imageDoctor: { width: 80, height: 80 },
+  textSection: { marginBottom: 20, alignItems: 'center' },
+  description: { color: "#fff", textAlign: "center", fontSize: 14, opacity: 0.85 },
+  subDescription: { color: "#fff", textAlign: "center", fontSize: 15, fontWeight: 'bold', marginTop: 5 },
+  inputContainer: { width: "100%" },
+  input: {
+    width: "100%", height: 50, backgroundColor: "rgba(255, 255, 255, 0.18)",
+    borderRadius: 10, paddingHorizontal: 15, color: "#fff", marginBottom: 12,
+    borderWidth: 1, borderColor: "rgba(255, 255, 255, 0.3)"
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  button: {
+    marginTop: 10, backgroundColor: "#ffffff", width: "100%", height: 50,
+    borderRadius: 10, justifyContent: "center", alignItems: "center", elevation: 5
   },
+  buttonText: { fontSize: 18, color: "#000", fontWeight: "bold" },
+  signUpButton: { marginTop: 20 },
+  signUpText: { color: "#fff", fontSize: 14 },
+  signUpBold: { fontWeight: "bold", textDecorationLine: "underline" },
+  errorText: { color: '#ff4d4d', marginBottom: 10, fontWeight: 'bold' }
 });

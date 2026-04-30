@@ -8,6 +8,7 @@ const PaginaFinalAgendamento = () => {
   const router = useRouter();
 
   const handlePressEncerrar = () => {
+<<<<<<< HEAD
     
     router.replace('/'); 
   };
@@ -19,49 +20,39 @@ const PaginaFinalAgendamento = () => {
     } else {
 
     }
+=======
+    router.replace('/(tabs)/explore');
+>>>>>>> 359aec22c8d71c9636b9a2651194b01257415352
   };
 
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
-        
-        {/* Parte Superior: Ícone e Título */}
         <View style={styles.content}>
           <View style={styles.successIconCircle}>
-            <Ionicons name="checkmark-done-circle" size={100} color="black" />
+            <Ionicons name="checkmark-done-circle" size={100} color="#203298" />
           </View>
-          
           <Text style={styles.titleText}>TUDO PRONTO!</Text>
           <Text style={styles.subtitleText}>
             Seu agendamento foi concluído com sucesso e já está em nosso sistema.
           </Text>
         </View>
-
-        {/* Parte Inferior: Botões de Ação */}''
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.primaryButton}
             onPress={handlePressEncerrar}
             activeOpacity={0.8}
           >
-            <Text style={styles.primaryButtonText}>Ir para o Inicio</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.secondaryButton}
-            onPress={handlePressVoltar}
-            activeOpacity={0.7}
-          >
-            <Text style={styles.secondaryButtonText}>Revisar Agendamento</Text>
+            <Text style={styles.primaryButtonText}>Ir para o Início</Text>
           </TouchableOpacity>
         </View>
-
       </SafeAreaView>
     </SafeAreaProvider>
   );
 };
 
 const styles = StyleSheet.create({
+<<<<<<< HEAD
   container: {
     flex: 1,
     backgroundColor: '#203298', 
@@ -72,63 +63,52 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: 30,
   },
+=======
+  container: { flex: 1, backgroundColor: '#203298' },
+  content: { flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 30 },
+>>>>>>> 359aec22c8d71c9636b9a2651194b01257415352
   successIconCircle: {
     backgroundColor: 'white',
     borderRadius: 100,
-    marginBottom: 20,
+    marginBottom: 25,
     elevation: 10,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 5 },
     shadowOpacity: 0.3,
     shadowRadius: 6,
   },
-  titleText: {
-    color: 'white',
-    fontSize: 28,
-    fontWeight: '900',
-    textAlign: 'center',
-    marginBottom: 10,
-  },
-  subtitleText: {
-    color: '#E0E0E0',
-    fontSize: 16,
-    textAlign: 'center',
-    lineHeight: 24,
-  },
-  buttonContainer: {
-    paddingBottom: 40,
-    alignItems: 'center',
-    width: '100%',
-  },
+  titleText: { color: 'white', fontSize: 32, fontWeight: '900', textAlign: 'center', marginBottom: 10 },
+  subtitleText: { color: '#E0E0E0', fontSize: 16, textAlign: 'center', lineHeight: 24, opacity: 0.9 },
+  buttonContainer: { paddingBottom: 50, alignItems: 'center', width: '100%' },
   primaryButton: {
+<<<<<<< HEAD
     backgroundColor: '', 
+=======
+    backgroundColor: '#FFFFFF',
+>>>>>>> 359aec22c8d71c9636b9a2651194b01257415352
     width: '85%',
     paddingVertical: 18,
     borderRadius: 15,
     alignItems: 'center',
-    marginBottom: 15,
-    elevation: 4,
+    elevation: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
   },
   primaryButtonText: {
+<<<<<<< HEAD
     color: 'white', 
     fontWeight: '400',
     fontSize: 18,
+=======
+    color: '#203298',
+    fontWeight: 'bold',
+    fontSize: 15,
+>>>>>>> 359aec22c8d71c9636b9a2651194b01257415352
     textTransform: 'uppercase',
+    letterSpacing: 1,
   },
-  secondaryButton: {
-    backgroundColor: 'transparent',
-    width: '85%',
-    paddingVertical: 12,
-    borderWidth: 0,
-    borderColor: '',
-    borderRadius: 15,
-    alignItems: 'center',
-  },
-  secondaryButtonText: {
-    color: 'white',
-    fontWeight: '500',
-    fontSize: 14,
-  }
 });
 
 export default PaginaFinalAgendamento;
