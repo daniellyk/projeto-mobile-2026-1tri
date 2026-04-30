@@ -8,7 +8,21 @@ const PaginaFinalAgendamento = () => {
   const router = useRouter();
 
   const handlePressEncerrar = () => {
+<<<<<<< HEAD
+    
+    router.replace('/'); 
+  };
+
+  const handlePressVoltar = () => {
+    if (router.canGoBack()) {
+      router.back();
+      router.replace('/agendamento');
+    } else {
+
+    }
+=======
     router.replace('/(tabs)/explore');
+>>>>>>> 359aec22c8d71c9636b9a2651194b01257415352
   };
 
   return (
@@ -38,8 +52,21 @@ const PaginaFinalAgendamento = () => {
 };
 
 const styles = StyleSheet.create({
+<<<<<<< HEAD
+  container: {
+    flex: 1,
+    backgroundColor: '#203298', 
+  },
+  content: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 30,
+  },
+=======
   container: { flex: 1, backgroundColor: '#203298' },
   content: { flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 30 },
+>>>>>>> 359aec22c8d71c9636b9a2651194b01257415352
   successIconCircle: {
     backgroundColor: 'white',
     borderRadius: 100,
@@ -54,7 +81,11 @@ const styles = StyleSheet.create({
   subtitleText: { color: '#E0E0E0', fontSize: 16, textAlign: 'center', lineHeight: 24, opacity: 0.9 },
   buttonContainer: { paddingBottom: 50, alignItems: 'center', width: '100%' },
   primaryButton: {
+<<<<<<< HEAD
+    backgroundColor: '', 
+=======
     backgroundColor: '#FFFFFF',
+>>>>>>> 359aec22c8d71c9636b9a2651194b01257415352
     width: '85%',
     paddingVertical: 18,
     borderRadius: 15,
@@ -66,9 +97,15 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
   },
   primaryButtonText: {
+<<<<<<< HEAD
+    color: 'white', 
+    fontWeight: '400',
+    fontSize: 18,
+=======
     color: '#203298',
     fontWeight: 'bold',
     fontSize: 15,
+>>>>>>> 359aec22c8d71c9636b9a2651194b01257415352
     textTransform: 'uppercase',
     letterSpacing: 1,
   },
