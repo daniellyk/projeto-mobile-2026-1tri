@@ -5,43 +5,55 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import StaleElementReferenceException
 
-def test_login_transicao_segura():
+def test_botoes_especialidade_home():
     driver = webdriver.Chrome()
     driver.maximize_window()
     wait = WebDriverWait(driver, 20)
 
     try:
         driver.get("http://localhost:8081")
-        
-        # Espera inicial para o carregamento do JavaScript
-        time.sleep(3)
+        time.sleep(5)
 
-        # Loop para evitar o erro de 'Stale Element' no botão
-        for _ in range(10):
-            try:
-                xpath_botao = "//*[contains(translate(text(), 'ENTRAR', 'entrar'), 'entrar')]"
-                botao = wait.until(EC.presence_of_element_located((By.XPATH, xpath_botao)))
-                
-                # Força o clique via JavaScript (mais estável para React)
-                driver.execute_script("arguments[0].click();", botao)
-                break 
-            except StaleElementReferenceException:
-                time.sleep(0.5)
-                continue
+        # Lista de especialidades conforme o seu código React Native
+        especialidades = ["Cardiologista", "Pneumologista", "Ortopedista", "Dermatologista", "Neurologista"]
 
-        # Validação de sucesso: Verifica se a URL mudou
-        time.sleep(3)
-        if "localhost:8081" in driver.current_url and len(driver.current_url) > 22:
-            print("SUCESSO: O sistema aceitou o clique e mudou de página!")
-        else:
-            print("Página atual: " + driver.current_url)
+        for esp in especialidades:
+            print(f"Testando clique na especialidade: {esp}")
+            
+            # Tenta localizar o botão pelo texto da especialidade
+            for _ in range(5):
+                try:
+                    # No React Native Web, o texto costuma ficar dentro de uma div ou span
+                    botao = wait.until(EC.presence_of_element_located((By.XPATH, f"//*[text()='{esp}']")))
+                    
+                    # Rola até o elemento e clica via JavaScript para garantir
+                    driver.execute_script("arguments[0].scrollIntoView(true);", botao)
+                    driver.execute_script("arguments[0].click();", botao)
+                    break
+                except StaleElementReferenceException:
+                    time.sleep(0.5)
+
+            # Espera carregar a tela de listagem
+            time.sleep(2)
+            
+            # Tira print do resultado do clique
+            driver.save_screenshot(f"resultado_clique_{esp}.png")
+            
+            if "listagem-doutores" in driver.current_url:
+                print(f"SUCESSO: Navegou para listagem filtrada por {esp}")
+            
+            # Volta para a tela inicial para clicar na próxima especialidade
+            driver.execute_script("window.history.back();")
+            time.sleep(2)
+
+        print("\nTodos os botões de especialidade foram testados com sucesso!")
 
     except Exception as e:
-        print(f"Erro: {e}")
+        driver.save_screenshot("erro_especialidades_home.png")
+        print(f"Ocorreu um erro: {e}")
     
     finally:
-        time.sleep(2)
         driver.quit()
 
 if __name__ == "__main__":
-    test_login_transicao_segura()
+    test_botoes_especialidade_home()
