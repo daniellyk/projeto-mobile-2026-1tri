@@ -3,57 +3,50 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import StaleElementReferenceException
+from selenium.common.exceptions import StaleElementReferenceException, TimeoutException
 
-def test_botoes_especialidade_home():
+def test_botao_inicio_final():
     driver = webdriver.Chrome()
     driver.maximize_window()
-    wait = WebDriverWait(driver, 20)
+    wait = WebDriverWait(driver, 25)
 
     try:
-        driver.get("http://localhost:8081")
+        driver.get("http://localhost:8081") # Tenta a raiz ou a rota final
         time.sleep(5)
 
-        # Lista de especialidades conforme o seu código React Native
-        especialidades = ["Cardiologista", "Pneumologista", "Ortopedista", "Dermatologista", "Neurologista"]
+        # XPath que ignora se o texto está maiúsculo ou minúsculo
+        xpath_botao = "//*[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'ir para o início')]"
 
-        for esp in especialidades:
-            print(f"Testando clique na especialidade: {esp}")
-            
-            # Tenta localizar o botão pelo texto da especialidade
-            for _ in range(5):
-                try:
-                    # No React Native Web, o texto costuma ficar dentro de uma div ou span
-                    botao = wait.until(EC.presence_of_element_located((By.XPATH, f"//*[text()='{esp}']")))
-                    
-                    # Rola até o elemento e clica via JavaScript para garantir
-                    driver.execute_script("arguments[0].scrollIntoView(true);", botao)
-                    driver.execute_script("arguments[0].click();", botao)
-                    break
-                except StaleElementReferenceException:
-                    time.sleep(0.5)
+        print("Buscando botão de encerramento...")
+        
+        for _ in range(15):
+            try:
+                # 1. Espera o elemento estar presente
+                botao = wait.until(EC.presence_of_element_located((By.XPATH, xpath_botao)))
+                
+                # 2. Rola até ele
+                driver.execute_script("arguments[0].scrollIntoView(true);", botao)
+                time.sleep(1)
+                
+                # 3. Força o clique via JavaScript
+                driver.execute_script("arguments[0].click();", botao)
+                print("Botão clicado com sucesso!")
+                break
+            except (StaleElementReferenceException, TimeoutException):
+                time.sleep(1)
+                continue
+        else:
+            print("Não foi possível encontrar o botão após várias tentativas.")
 
-            # Espera carregar a tela de listagem
-            time.sleep(2)
-            
-            # Tira print do resultado do clique
-            driver.save_screenshot(f"resultado_clique_{esp}.png")
-            
-            if "listagem-doutores" in driver.current_url:
-                print(f"SUCESSO: Navegou para listagem filtrada por {esp}")
-            
-            # Volta para a tela inicial para clicar na próxima especialidade
-            driver.execute_script("window.history.back();")
-            time.sleep(2)
-
-        print("\nTodos os botões de especialidade foram testados com sucesso!")
+        time.sleep(3)
+        driver.save_screenshot("confirmacao_retorno_inicio.png")
 
     except Exception as e:
-        driver.save_screenshot("erro_especialidades_home.png")
-        print(f"Ocorreu um erro: {e}")
+        driver.save_screenshot("erro_final_debug.png")
+        print(f"Erro detectado: {e}")
     
     finally:
         driver.quit()
 
 if __name__ == "__main__":
-    test_botoes_especialidade_home()
+    test_botao_inicio_final()
