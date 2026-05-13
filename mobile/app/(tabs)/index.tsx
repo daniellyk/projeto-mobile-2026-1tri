@@ -99,7 +99,7 @@ export default function HomeScreen() {
 
       {erroVazio && (
         <Text 
-        testID="msg-erro-vazio"
+        testID="msg-erro-vazio"   
         style={styles.errorText}>campos obrigatórios</Text>
       )}
 

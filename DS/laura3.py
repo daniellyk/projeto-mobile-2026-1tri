@@ -4,7 +4,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-URL = "http://localhost:8083/exames"  
+URL = "http://localhost:8081/exames"  
 driver = webdriver.Chrome()
 
 try:
